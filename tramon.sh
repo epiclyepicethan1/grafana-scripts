@@ -1,10 +1,9 @@
 #!/bin/bash
-#taken from https://denlab.io/setup-a-wicked-grafana-dashboard-to-monitor-practically-anything/ and modified a bit
-#Prepare to start the loop and warn the user
+
 echo "Press [CTRL+C] to stop..."
 
     #Get the current dump of the stats
-    transmissionstats=$(ssh user@192.168.1.108 "transmission-remote -n 'transmission:transmission' -st |  tail -n +9 | cut -c 3-")
+    transmissionstats=$(ssh USERNAME@TRANSMISSION-IP "transmission-remote -n 'transmission:transmission' -st |  tail -n +9 | cut -c 3-")
     #extract the data we need
     started=$(echo $transmissionstats | grep -o -P '.{0,0}Started.{0,6}'| tr -d [:alpha:] | tr -d : | sed 's/ //g')
     uploaded=$(echo $transmissionstats | grep -o -P '.{0,0}Uploaded.{0,9}'|tr -d [:alpha:] | tr -d : | sed 's/ //g')
