@@ -8,7 +8,7 @@ outdoor_data=$(jshon -e body -e devices < data.json | jq -r '.[].modules' |  jq 
 
 #single out all the values for indoor
 in_noise=$(echo $indoor_data | grep -o -P '.{0,0}Noise.{0,5}' | sed 's/[^0-9]*//g')
-in_temperature=$(echo $indoor_data | grep -o -P '.{0,0}Temperature.{0,7}' | sed 's/[^0-9.]*//g')
+in_temperature=$(echo $indoor_data | grep -o -P '.{0,0}Temperature.{0,7}' | sed 's/[^0-9.-]*//g')
 in_temp_trend=$(echo $indoor_data | jshon -e body -e devices < data.json | jq -r '.[].dashboard_data' | grep -o -P '.{0,0}temp_trend.{0,11}' |  grep -o 'down\|up\|stable')
 in_humidity=$(echo $indoor_data |  grep -o -P '.{0,0}Humidity.{0,5}' | sed 's/[^0-9]*//g')
 in_pressure=$(echo $indoor_data |  grep -o -P '.{0,0}"Pressure.{0,10}' | sed 's/[^0-9.]*//g')
@@ -27,7 +27,7 @@ max_wind_angle=$(echo $wind_data | grep -o -P '.{0,0}"max_wind_angle.{0,11}' | s
 windangle=$(echo $wind_data | grep -o -P '.{0,0}"WindAngle.{0,11}' | sed 's/[^0-9]*//g')
 
 #single out all the values i want for outdoor
-out_temperature=$(echo $outdoor_data | grep -o -P '.{0,0}"Temperature.{0,11}' | sed 's/[^0-9.]*//g')
+out_temperature=$(echo $outdoor_data | grep -o -P '.{0,0}"Temperature.{0,11}' | sed 's/[^0-9.-]*//g')
 out_temp_trend=$(echo $outdoor_data | grep -o -P '.{0,0}"temp_trend.{0,11}' |  grep -o 'down\|up\|stable')
 out_humidity=$(echo $outdoor_data |  grep -o -P '.{0,0}"Humidity.{0,11}' | sed 's/[^0-9.]*//g')
 out_min_temp=$(echo $outdoor_data |  grep -o -P '.{0,0}"min_temp.{0,11}' | sed 's/[^0-9.]*//g')
