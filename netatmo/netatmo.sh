@@ -67,8 +67,8 @@ curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "w
 curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=wind_battery_percent value=$wind_battery_percent"
 
 #write rain data
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=rain_rain value=$rain_rain"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=rain_battery_percent value=$rain_battery_percent"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "rain_data,host=weather,sensor=rain_rain value=$rain_rain"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "rain_data,host=weather,sensor=rain_battery_percent value=$rain_battery_percent"
 
 #remove the data file
 rm data.json
