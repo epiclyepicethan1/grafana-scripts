@@ -35,37 +35,40 @@ rain_battery_percent=$(jshon -e body -e devices -e 0 -e modules -e 2 -e battery_
 indoor_temperature=$(awk "BEGIN {print $indoor_temperature*1.8+32; exit}")
 indoor_min_temp=$(awk "BEGIN {print $indoor_min_temp*1.8+32; exit}")
 indoor_max_temp=$(awk "BEGIN {print $indoor_max_temp*1.8+32; exit}")
+outdoor_temperature=$(awk "BEGIN {print $outdoor_temperature*1.8+32; exit}")
+outdoor_min_temp=$(awk "BEGIN {print $outdoor_min_temp*1.8+32; exit}")
+outdoor_max_temp=$(awk "BEGIN {print $outdoor_max_temp*1.8+32; exit}")
 
 #write the data to the database
 
 #write indoor data
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=indoor,sensor=indoor value=$indoor_noise"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=indoor,sensor=indoor value=$indoor_temperature"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=indoor,sensor=indoor value=$indoor_humidity"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=indoor,sensor=indoor value=$indoor_pressure"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=indoor,sensor=indoor value=$indoor_co2"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=indoor,sensor=indoor value=$indoor_absolutepressure"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=indoor,sensor=indoor value=$indoor_min_temp"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=indoor,sensor=indoor value=$indoor_max_temp"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=weather,sensor=indoor_noise value=$indoor_noise"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=weather,sensor=indoor_temperature value=$indoor_temperature"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=weather,sensor=indoor_humidity value=$indoor_humidity"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=weather,sensor=indoor_pressure value=$indoor_pressure"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=weather,sensor=indoor_co2 value=$indoor_co2"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=weather,sensor=indoor_absolutepressure value=$indoor_absolutepressure"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=weather,sensor=indoor_min_temp value=$indoor_min_temp"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "indoor_data,host=weather,sensor=indoor_max_temp value=$indoor_max_temp"
 
 #write outdoor data
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=indoor,sensor=outdoor value=$outdoor_temperature"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=indoor,sensor=outdoor value=$outdoor_humidity"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=indoor,sensor=outdoor value=$outdoor_min_temp"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=indoor,sensor=outdoor value=$outdoor_max_temp"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=indoor,sensor=outdoor value=$outdoor_battery_percent"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=weather,sensor=outdoor_temperature value=$outdoor_temperature"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=weather,sensor=outdoor_humidity value=$outdoor_humidity"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=weather,sensor=outdoor_min_temp value=$outdoor_min_temp"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=weather,sensor=outdoor_max_temp value=$outdoor_max_temp"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "outdoor_data,host=weather,sensor=outdoor_battery_percent value=$outdoor_battery_percent"
 
 #write wind data
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=indoor,sensor=wind value=$wind_max_wind_str"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=indoor,sensor=wind value=$wind_windstrength"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=indoor,sensor=wind value=$wind_gustangle"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=indoor,sensor=wind value=$wind_max_wind_angle"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=indoor,sensor=wind value=$wind_windangle"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=indoor,sensor=wind value=$wind_battery_percent"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=wind_max_wind_str value=$wind_max_wind_str"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=wind_windstrength value=$wind_windstrength"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=wind_gustangle value=$wind_gustangle"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=wind_max_wind_angle value=$wind_max_wind_angle"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=wind_windangle value=$wind_windangle"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=wind_battery_percent value=$wind_battery_percent"
 
 #write rain data
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=indoor,sensor=rain value=$rain_rain"
-curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=indoor,sensor=rain value=$rain_battery_percent"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=rain_rain value=$rain_rain"
+curl -i -XPOST 'http://INFLUXDB-IP:PORT/write?db=DATABASE-NAME' --data-binary "wind_data,host=weather,sensor=rain_battery_percent value=$rain_battery_percent"
 
 #remove the data file
 rm data.json
